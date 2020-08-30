@@ -96,6 +96,47 @@
           </div>
           <!-- ./col -->
             <div class="col-12">
+              <section class="col-lg-12 connectedSortable">
+            <div class="card bg-gradient-primary">
+              <div class="card-header border-0">
+                <h3 class="card-title">
+                  <i class="fas fa-map-marker-alt mr-1"></i>
+                  Pantauan wilayah
+                </h3>
+                <!-- card tools -->
+                <div class="card-tools">
+                </div>
+                <!-- /.card-tools -->
+              </div>
+
+              <div class="card-body">
+              <GmapMap
+                :center="{ lat: parseFloat(streetLocation.latitude), lng: parseFloat(streetLocation.longitude) }"
+                :zoom="17"
+                style="width:100%; height:500px;"
+                ref="myMapRef"
+              ></GmapMap>
+
+              </div><!-- /.card-body-->
+              <div class="card-footer bg-transparent">
+                <div class="row">
+                  <div class="col-4 text-center">
+                    <div id="sparkline-1" style="display:none"></div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <div id="sparkline-2" style="display:none"></div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-4 text-center">
+                    <div id="sparkline-3" style="display:none"></div>
+                  </div>
+                  <!-- ./col -->
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+          </section>
               <!-- interactive chart -->
               <div class="card card-primary card-outline">
                 <div class="card-header">
@@ -158,6 +199,7 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
+        
     </section>
     <!-- /.content -->
   </div>
@@ -175,6 +217,10 @@ export default {
     return {
       street: {},
       streetName: "",
+      streetLocation: {
+        latitude: "0",
+        longitude: "0",
+      },
       streetDataToday: [],
       streetMotorcycleData: [],
       streetCarData: [],
@@ -224,6 +270,16 @@ export default {
             console.log("error: "+JSON.stringify(error.error));
       });
       }, 1000)
+    },
+    getStreetLocation() {
+      this.street.streetName = this.streetName;
+      this.axios.post('http://localhost:3030/api/v1/street/location', this.street)
+      .then((response) => {       
+          this.street.location = response.data;
+          this.streetLocation = response.data;
+        }).catch(error => {   
+          console.log("error: "+JSON.stringify(error.error));
+      });
     },
     getStreetDataToday() {
 
@@ -277,7 +333,7 @@ export default {
   created() {
     this.streetName = this.$route.params.streetName;
     this.$eventBus.$emit("location", "street");
-    this.$eventBus.$emit("subLocation", "Darmo");
+    this.$eventBus.$emit("subLocation", this.streetName);
   },
   mounted() {
     /* eslint-disable */
@@ -306,7 +362,13 @@ export default {
 
     this.getStreetDataNow()
     this.getStreetDataToday()
+    this.getStreetLocation()
     
+    this.$refs.myMapRef.$mapPromise.then((map) => {
+      let trafficLayer = new google.maps.TrafficLayer;
+      trafficLayer.setMap(map);
+    });
+
   }
 }
 </script>

@@ -10,6 +10,8 @@ import HighchartsVue from 'highcharts-vue'
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 import datetime from 'node-datetime';
@@ -19,6 +21,8 @@ Vue.use(VueAxios, axios);
 Vue.use(HighchartsVue);
 
 Vue.use(datetime);
+
+Vue.use(VueSweetalert2);
 
 import { firestorePlugin } from 'vuefire'
 

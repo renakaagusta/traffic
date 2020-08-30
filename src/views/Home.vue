@@ -83,7 +83,7 @@
               </div>
 
               <div class="card-body">
-                          <GmapMap
+              <GmapMap
                 :center="{ lat: -7.2754438, lng: 112.6424711 }"
                 :zoom="13"
                 style="width:100%; height:500px;"

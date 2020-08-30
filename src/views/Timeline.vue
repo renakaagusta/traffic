@@ -38,7 +38,7 @@
                     macet
                   </div>
                   <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Detail</a>
+                    <a class="btn btn-primary btn-sm" @click="alertDisplay(event)">Detail</a>
                   </div>
                 </div>
               </div>
@@ -67,7 +67,7 @@
                     macet
                   </div>
                   <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Detail</a>
+                    <a class="btn btn-primary btn-sm"  @click="alertDisplay(event)">Detail</a>
                   </div>
                 </div>
               </div>
@@ -185,6 +185,15 @@ export default {
     }
   },
   methods: {
+    alertDisplay(event) {
+      this.$swal('Data kendaraan', 
+                  '<br> Motor : ' + event.motorcycle +
+                  '<br> Mobil : ' + event.car +
+                  '<br> Truck : ' + event.truck +
+                  '<br> Bus : ' + event.bus,
+                  'OK');
+
+    },
     checkTime(i) {
       if (i < 10) {
         i = "0" + i;
