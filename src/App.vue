@@ -45,15 +45,6 @@
 </template>
 <script>
 
-  require("@/assets/plugins/fontawesome-free/css/all.min.css")
-  require("@/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css")
-  require("@/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css")
-  require("@/assets/plugins/jqvmap/jqvmap.min.css")
-  require("@/assets/dist/css/adminlte.min.css")
-  require("@/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")
-  require("@/assets/plugins/daterangepicker/daterangepicker.css")
-  require("@/assets/plugins/summernote/summernote-bs4.css")
-
   export default {
     name: "app",
     data() {
