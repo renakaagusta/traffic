@@ -15,9 +15,9 @@
           <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item">
             <router-link v-bind:class="['nav-link',location == 'home' ? 'active' :'']" :to="{path:'/home', params: { streetName: 'Darmo'}}">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-home"></i>
                 <p>
-                  Dashboard
+                  Home
                 </p>
             </router-link>
           </li>
@@ -33,7 +33,7 @@
             <a class="nav-link" href="" @click.prevent="navStreet=!navStreet">
                 <i class="fas fa-road nav-icon"></i>
                 <p>
-                Jalan
+                Street
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -43,9 +43,6 @@
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" v-bind:class="[subLocation=='Kertajaya' ? 'active' : '','nav-link']" :to="{name:'street', params: { streetName: 'Kertajaya'}}">Kertajaya</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" v-bind:class="[subLocation=='Ir Soekarno' ? 'active' : '','nav-link']" :to="{name:'street', params: { streetName: 'Ir Soekarno'}}">Ir Soekarno</router-link>
               </li>
             </ul>
           </li>

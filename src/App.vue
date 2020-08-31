@@ -12,14 +12,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark">{{ location.charAt(0).toUpperCase() + location.slice(1) }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li v-if="location == 'home'" class="breadcrumb-item active">Beranda</li>
+              <li v-if="location == 'home'" class="breadcrumb-item active">Home</li>
               <li v-if="location == 'timeline'" class="breadcrumb-item active">Timeline</li>
-              <li v-if="location == 'street'" class="breadcrumb-item active">Jalan</li>
+              <li v-if="location == 'street'" class="breadcrumb-item active">Street</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

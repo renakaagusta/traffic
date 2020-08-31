@@ -7,9 +7,17 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-12">
-            <div class="alert alert-success alert-dismissible">
+            <div v-if="streetCondition.status==0" class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <h5><i class="icon fas fa-check"></i> Lancar</h5>
+            </div>
+            <div v-if="streetCondition.status==1" class="alert alert-warning alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h5><i class="icon fas fa-exclamation-triangle"></i> Ramai</h5>
+            </div>
+            <div v-if="streetCondition.status==2" class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h5><i class="icon fas fa-exclamation-circle"></i> Macet</h5>
             </div>
           </div>
           <div class="col-lg-12">
@@ -221,6 +229,7 @@ export default {
         latitude: "0",
         longitude: "0",
       },
+      streetCondition: {},
       streetDataToday: [],
       streetMotorcycleData: [],
       streetCarData: [],
@@ -265,6 +274,20 @@ export default {
           .then((response) => { 
             
             self.street = response.data;
+            self.street.streetName = self.streetName;
+        }).catch(error => {   
+            console.log("error: "+JSON.stringify(error.error));
+      });
+      }, 1000)
+    },
+    getStreetConditionNow() {
+      var self = this
+      this.street.streetName = this.streetName;
+      setInterval(function(){
+          self.axios.post('http://localhost:3030/api/v1/street/condition/now', self.street)
+          .then((response) => { 
+            
+            self.streetCondition = response.data;
             self.street.streetName = self.streetName;
         }).catch(error => {   
             console.log("error: "+JSON.stringify(error.error));
@@ -361,6 +384,7 @@ export default {
     }, 3000)
 
     this.getStreetDataNow()
+    this.getStreetConditionNow()
     this.getStreetDataToday()
     this.getStreetLocation()
     
