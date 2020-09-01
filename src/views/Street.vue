@@ -223,6 +223,8 @@ stockInit(Highcharts)
 export default {
   data: function() {
     return {
+      ip: "157.230.39.171",
+      //ip: "localhost",
       street: {},
       streetName: "",
       streetLocation: {
@@ -270,7 +272,7 @@ export default {
       var self = this
       this.street.streetName = this.streetName;
       setInterval(function(){
-          self.axios.post('http://localhost:3030/api/v1/street/count/now', self.street)
+          self.axios.post('http://'+ self.ip + ':3030/api/v1/street/count/now', self.street)
           .then((response) => { 
             
             self.street = response.data;
@@ -284,7 +286,7 @@ export default {
       var self = this
       this.street.streetName = this.streetName;
       setInterval(function(){
-          self.axios.post('http://localhost:3030/api/v1/street/condition/now', self.street)
+          self.axios.post('http://'+ self.ip + ':3030/api/v1/street/condition/now', self.street)
           .then((response) => { 
             
             self.streetCondition = response.data;
@@ -296,7 +298,7 @@ export default {
     },
     getStreetLocation() {
       this.street.streetName = this.streetName;
-      this.axios.post('http://localhost:3030/api/v1/street/location', this.street)
+      this.axios.post('http://'+ this.ip + ':3030/api/v1/street/location', this.street)
       .then((response) => {       
           this.street.location = response.data;
           this.streetLocation = response.data;
@@ -310,7 +312,7 @@ export default {
       var self = this
       this.street.streetName = this.streetName
       setInterval(function(){
-          self.axios.post('http://localhost:3030/api/v1/street/count/day', self.street)
+          self.axios.post('http://'+ 'localhost' + ':3030/api/v1/street/count/day', self.street)
           .then((response) => {
           self.streetCarData = [] 
             for(var i = 0; i < response.data[0].counts.length; i++) {
@@ -346,7 +348,6 @@ export default {
           self.carChartOptions.series[0].data = self.streetCarData;
           self.truckChartOptions.series[0].data = self.streetTruckData;
           self.busChartOptions.series[0].data = self.streetBusData;
-
           }).catch(error => {   
             console.log("error: "+JSON.stringify(error.error));
       });
@@ -375,7 +376,7 @@ export default {
       street.bus = Math.floor(Math.random() * 100 ) % 2;
       street.streetName = self.streetName;
 
-      self.axios.post('http://localhost:3030/api/v1/street/count', street)
+      self.axios.post('http://'+ self.ip + ':3030/api/v1/street/count', street)
           .then((response) => {
             //console.log("response: "+JSON.stringify(response))
           }).catch(error => {   

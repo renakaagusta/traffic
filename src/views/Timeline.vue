@@ -72,6 +72,35 @@
                 </div>
               </div>
               <!-- END timeline item -->
+                                          <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-secondary">{{ getIndonesiaDateFormat( today_min_2) }}</span>
+              </div>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <div v-for="event in timeline.today_min_2" :key="event.id">
+                <i v-if="event.status == 0" class="fas fa-check bg-green"></i>
+                <i v-if="event.status == 1" class="fas fa-exclamation bg-yellow"></i>
+                <i v-if="event.status == 2" class="fas fa-exclamation bg-red"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i>{{ getHours(event.time) }}</span>
+                  <h3 class="timeline-header"><a href="#">{{ 'Jl. '+ event.name }}</a></h3>
+
+                  <div v-if="event.status == 0" class="timeline-body">
+                    lancar
+                  </div>
+                  <div v-if="event.status == 1" class="timeline-body">
+                    padat
+                  </div>
+                  <div v-if="event.status == 2" class="timeline-body">
+                    macet
+                  </div>
+                  <div class="timeline-footer">
+                    <a class="btn btn-primary btn-sm"  @click="alertDisplay(event)">Detail</a>
+                  </div>
+                </div>
+              </div>
+              <!-- END timeline item -->
               <!-- timeline item -->
               <div v-if="set">
                 <i class="fas fa-exclamation bg-red"></i>
@@ -172,7 +201,9 @@
 export default {
   /* eslint-disable */
   data() {
-    return{
+    return{        
+      ip: "157.230.39.171",
+      //ip: "localhost",
       timeline: {
         today: [],
         today_min_1: [],
@@ -263,7 +294,7 @@ export default {
 
 
     setInterval(function(){
-      self.axios.post('http://localhost:3030/api/v1/street/all/condition')
+      self.axios.post('http://'+ self.ip + ':3030/api/v1/street/all/condition')
           .then((response) => {
 
               self.timeline.today = []

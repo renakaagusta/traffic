@@ -130,6 +130,8 @@
     name: "app",
     data() {
       return {
+        ip: "157.230.39.171",
+        //ip: "localhost",
         streets: {
           motorcycle: 0,
           car: 0,
@@ -144,7 +146,7 @@
         /* eslint-disable */
         var self = this;
         setInterval(function() {
-          self.axios.post('http://localhost:3030/api/v1/street/all/count/now', self.streets)
+          self.axios.post('http://'+ self.ip + ':3030/api/v1/street/all/count/now', self.streets)
           .then((response)=>{
             self.streets.motorcycle = 0
             self.streets.car = 0
